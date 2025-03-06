@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="keywords" content="好玩的" />
+    <title>js 语音识别</title>
+  </head>
+  <body>
+    <h4>在浏览器中进行语音识别</h4>
+    <button id="startBtn">开始录音</button>
+    <div id="result"></div>
+
+    <script>
+      const startBtn = document.getElementById("startBtn");
+      const resultDiv = document.getElementById("result");
+
+      // 检测浏览器支持性
+      if (
+        "SpeechRecognition" in window ||
+        "webkitSpeechRecognition" in window
+      ) {
+        const SpeechRecognition =
+          window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+
+        // 设置语言（中文）
+        recognition.lang = "zh-CN";
+        recognition.interimResults = false; // 是否返回临时结果
+        recognition.continuous = false; // 是否连续识别
+
+        // 开始录音
+        startBtn.addEventListener("click", () => {
+          recognition.start();
+          resultDiv.textContent = "正在聆听...";
+        });
+
+        // 识别结果
+        recognition.onresult = (event) => {
+          const transcript = event.results[0][0].transcript;
+          resultDiv.textContent = `识别结果：${transcript}`;
+        };
+
+        // 错误处理
+        recognition.onerror = (event) => {
+          resultDiv.textContent = `错误：${event.error}`;
+        };
+      } else {
+        resultDiv.textContent = "当前浏览器不支持语音识别";
+      }
+    </script>
+  </body>
+</html>
