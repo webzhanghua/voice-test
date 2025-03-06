@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Annyang 示例</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
+  </head>
+  <body>
+    <h1>试试说 "hello"</h1>
+    <script>
+      if (annyang) {
+        console.log("[ annyang ]-12", annyang);
+        const commands = {
+          hello: () => {
+            console.log("Hello world!");
+            alert("Hello world!");
+          },
+        };
+        // annyang.setLanguage("zh-CN");
+        annyang.addCommands(commands);
+        annyang.start();
+      }
+    </script>
+  </body>
+</html>
